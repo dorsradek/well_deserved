@@ -8,30 +8,67 @@
  * Controller of the frontEndParentApp
  */
 angular.module('frontEndParentApp')
-  .controller('tasksCtrl', ['$scope', function ($scope) {
+  .controller('tasksCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
 
     var self = $scope;
-    $scope.tasks = [
-      {
-        name: "Clean your room",
-        status: "TO DO",
-        points: 3
-      },
-      {
-        name: "Do your homework",
-        status: "TO DO",
-        points: 8
-      },
-      {
-        name: "Wash the car",
-        status: "TO DO",
-        points: 6
-      },
-      {
-        name: "Make dishes",
-        status: "TO DO",
-        points: 4
-      },
-    ];
+
+
+
+    self.isAddTask=  false ;
+    self.showAddTask = showAddTask;
+    self.cancel =cancel;
+    self.addNewTask =addNewTask;
+    $scope.tasks = [];
+
+    var getTasks = function (){
+      $http({
+        method: 'GET',
+        url: 'http://192.168.8.105:8080/tasks',
+
+      }).then(function successCallback(response) {
+        $scope.tasks = response.data;
+      }, function errorCallback(response) {
+        console.log("nothing")
+      })};
+
+
+
+    getTasks();
+
+
+
+    function showAddTask() {
+      self.isAddTask = true;
+    };
+
+    function cancel() {
+      self.isAddTask = false;
+    };
+
+
+    function addNewTask() {
+      self.isAddTask = false;
+      self.tasks.push({
+        name: self.newTask.name,
+        taskStatus: "TO DO",
+        points: self.newTask.points
+      });
+
+      var createTask = function (){
+        $http({
+          method: 'POST',
+          url: 'http://192.168.8.105:8080/tasks/create',
+          data: {
+            name: self.newTask.name,
+            points: self.newTask.points
+          }
+        }).then(function successCallback(response) {
+          $scope.points = response.data;
+        }, function errorCallback(response) {
+          console.log("nothing")
+        })};
+      createTask();
+
+    };
 
   }]);

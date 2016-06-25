@@ -1,5 +1,31 @@
 <h1>TASKS</h1>
-<table class="tasks-table" ng-controller="tasksCtrl">
+<div  ng-controller="tasksCtrl">
+
+<button ng-click="showAddTask()">Add Task</button>
+
+<div class="add-task" ng-show="isAddTask">
+  <h2>New Task</h2>
+  <label>{{isAddTask}}</label>
+  <div>
+    <label>Name</label>
+    <br/>
+    <input type="text" ng-model="newTask.name">
+  </div>
+  <div>
+    <label>Points</label>
+    <br/>
+    <input type="number" ng-model="newTask.points">
+  </div>
+
+  <div>
+    <button id="cancel" ng-click="cancel()">Cancel</button>
+    <button id="add" ng-click="addNewTask()">Add</button>
+  </div>
+
+
+</div>
+
+<table class="tasks-table">
   <tr>
     <th>Name</th>
     <th>Status</th>
@@ -9,8 +35,9 @@
 
   <tr ng-repeat = "task in tasks">
     <td>{{task.name}}</td>
-    <td>{{task.status}}</td>
+    <td>{{task.taskStatus}}</td>
     <td>{{task.points}}</td>
-    <td><input type = "checkbox" ng-if="task.status == 'TO DO'" ng-click="task.status='DONE'"></td>
+    <td><input type = "checkbox" ng-if="task.taskStatus == 'DONE'" ng-click="task.taskStatus='VERIFIED'"></td>
   </tr>
 </table>
+</div>

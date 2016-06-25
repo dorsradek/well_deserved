@@ -8,8 +8,7 @@
  * Controller of the frontEndParentApp
  */
 angular.module('frontEndParentApp')
-  .controller('wishesCtrl', ['$scope', function ($scope) {
-    $scope.points = 40;
+  .controller('wishesCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
     var self = $scope;
 
     self.isAddWish =  false ;
@@ -18,32 +17,34 @@ angular.module('frontEndParentApp')
     self.addNewWish =addNewWish;
 
     self.newWish = {};
-    self.wishes = [
-      {
-        name: "New race car",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "PRICED",
-        points: 30
-      },
-      {
-        name: "IPOD",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "ADDED",
-        points: 0
-      },
-      {
-        name: "Candies",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "TO BUY",
-        points: 3
-      },
-      {
-        name: "Apple juice",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "BOUGHT",
-        points: 1
-      },
-    ];
+
+
+    var getWishes = function (){
+      $http({
+        method: 'GET',
+        url: 'http://192.168.8.105:8080/wishes'
+
+      }).then(function successCallback(response) {
+        $scope.wishes = response.data;
+      }, function errorCallback(response) {
+        console.log("nothing")
+      })};
+
+
+
+    getWishes();
+
+
+    $scope.addPoints = function(wish){
+      wish.wishStatus="PRICED";
+      $http({
+        method: 'POST',
+        url: 'http://192.168.8.105:8080/wishes/addPoints',
+        data: wish
+
+      })
+
+  };
 
     function showAddWish() {
        self.isAddWish = true;
@@ -59,14 +60,22 @@ angular.module('frontEndParentApp')
       self.wishes.push({
           name: self.newWish.name,
           description:  self.newWish.description,
-          status: "ADDED",
+          wishStatus: "ADDED",
           points: 0
        });
+      self.newWish = {};
+      
   };
 
 
+    $scope.handleClick = function() {
+      pointsService.prepForBroadcast();
+    };
 
-
+    $scope.$on('handleBroadcast', function() {
+      $scope.points = pointsService.points;
+      console.log($scope.points)
+    });
 
 
   }]);

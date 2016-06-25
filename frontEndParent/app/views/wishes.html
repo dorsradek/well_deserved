@@ -1,29 +1,5 @@
 <div ng-controller="wishesCtrl">
   <h1>WISHES</h1>
-  <button ng-click="showAddWish()">Add Wish</button>
-
-  <div class="add-wish" ng-show="isAddWish">
-    <h2>New Wishes</h2>
-      <label>{{isAddWish}}</label>
-    <div>
-      <label>Name</label>
-      <br/>
-      <input type="text" ng-model="newWish.name">
-    </div>
-
-    <div>
-      <label>Description</label>
-      <br/>
-      <textarea placeholder="This is description of the wish."  ng-model="newWish.description" ></textarea>
-    </div>
-
-    <div>
-      <button id="cancel" ng-click="cancel()">Cancel</button>
-      <button id="add" ng-click="addNewWish()">Add</button>
-    </div>
-
-
-  </div>
 
   <table class="wishes-table" >
     <tr>
@@ -35,10 +11,10 @@
 
     <tr ng-repeat = "wish in wishes">
       <td>{{wish.name}}</td>
-      <td>{{wish.status}}</td>
+      <td>{{wish.wishStatus}}</td>
       <td>{{wish.points}}</td>
       <td>
-        <button ng-if="points > wish.points && wish.status==='PRICED'" ng-click="sendRequest">Get</button>
+        <input type="number" ng-if="wish.wishStatus==='ADDED'" ng-model='wish.points' ng-change="addPoints(wish)" placeholder="estimate"></input>
       </td>
     </tr>
   </table>
