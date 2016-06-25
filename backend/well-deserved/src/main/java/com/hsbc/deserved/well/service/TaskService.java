@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by rdors on 2016-06-25.
@@ -27,7 +28,7 @@ public class TaskService implements ITaskService {
 
     @Override
     public List<Task> findAll() {
-        return taskRepository.findAll();
+        return taskRepository.findAll().stream().filter(t -> !t.getTaskStatus().equals(TaskStatus.VERIFIED)).collect(Collectors.toList());
     }
 
     @Override
@@ -44,7 +45,7 @@ public class TaskService implements ITaskService {
         Kid kid = kidRepository.findAll().get(0);
 
         long tasksMandatoryAndNotFinised = taskRepository.findAll().stream()
-                .filter(t -> !t.getTaskStatus().equals(TaskStatus.VERIFIED.toString()) && t.isMandatory())
+                .filter(t -> !t.getTaskStatus().equals(TaskStatus.VERIFIED.toString()) && t.getPoints().intValue() == 0)
                 .count();
 
         if (tasksMandatoryAndNotFinised == 0) {

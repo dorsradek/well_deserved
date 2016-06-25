@@ -48,7 +48,7 @@ public class WishService implements IWishService {
     public void request(Wish wish) {
         Wish wishDb = wishRepository.findOne(wish.getId());
         Kid kidDb = kidRepository.findAll().get(0);
-        if (kidDb.getPoints() >= wishDb.getPoints()) {
+        if (wishDb.getWishStatus().equals(WishStatus.PRICED) && kidDb.getPoints() >= wishDb.getPoints()) {
             wishDb.setWishStatusEnum(WishStatus.WAITING_TO_BUY);
             wishRepository.save(wishDb);
 

@@ -20,9 +20,10 @@ public class Kid {
     Kid() {
     }
 
-    public Kid(String name, Integer points) {
+    public Kid(String name, Integer points, Integer waitingPoints) {
         this.name = name;
         this.points = points;
+        this.waitingPoints = waitingPoints;
     }
 
     public Long getId() {

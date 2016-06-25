@@ -33,6 +33,13 @@ public class Wish {
         this.wishStatus = wishStatus;
     }
 
+    public Wish(String name, String description, Integer points, WishStatus wishStatus) {
+        this.name = name;
+        this.description = description;
+        this.points = points;
+        this.wishStatus = wishStatus.getValue();
+    }
+
     public Long getId() {
         return id;
     }

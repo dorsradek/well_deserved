@@ -21,27 +21,24 @@ public class Task {
     Task() {
     }
 
-    public Task(String name, TaskStatus taskStatus, Integer points, boolean mandatory) {
+    public Task(String name, TaskStatus taskStatus, Integer points) {
         this.name = name;
         this.taskStatus = taskStatus.getValue();
         this.points = points;
-        this.mandatory = mandatory;
     }
 
-    public Task(Long id, String name, TaskStatus taskStatus, Integer points, boolean mandatory) {
+    public Task(Long id, String name, TaskStatus taskStatus, Integer points) {
         this.id = id;
         this.name = name;
         this.taskStatus = taskStatus.getValue();
         this.points = points;
-        this.mandatory = mandatory;
     }
 
-    public Task(Long id, String name, String taskStatus, Integer points, boolean mandatory) {
+    public Task(Long id, String name, String taskStatus, Integer points) {
         this.id = id;
         this.name = name;
         this.taskStatus = taskStatus;
         this.points = points;
-        this.mandatory = mandatory;
     }
 
     public Long getId() {
@@ -78,15 +75,6 @@ public class Task {
 
     public void setPoints(Integer points) {
         this.points = points;
-    }
-
-
-    public boolean isMandatory() {
-        return mandatory;
-    }
-
-    public void setMandatory(boolean mandatory) {
-        this.mandatory = mandatory;
     }
 
     @Override
