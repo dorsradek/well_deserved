@@ -9,8 +9,15 @@
  */
 angular.module('frontEndParentApp')
   .controller('wishesCtrl', ['$scope', function ($scope) {
-    $scope.points = 40; 
+    $scope.points = 40;
     var self = $scope;
+
+    self.isAddWish =  false ;
+    self.showAddWish = showAddWish;
+    self.cancel =cancel;
+    self.addNewWish =addNewWish;
+
+    self.newWish = {};
     self.wishes = [
       {
         name: "New race car",
@@ -37,5 +44,29 @@ angular.module('frontEndParentApp')
         points: 1
       },
     ];
+
+    function showAddWish() {
+       self.isAddWish = true;
+    };
+
+    function cancel() {
+      self.isAddWish = false;
+    };
+
+
+    function addNewWish() {
+      self.isAddWish = false;
+      self.wishes.push({
+          name: self.newWish.name,
+          description:  self.newWish.description,
+          status: "ADDED",
+          points: 0
+       });
+  };
+
+
+
+
+
 
   }]);
