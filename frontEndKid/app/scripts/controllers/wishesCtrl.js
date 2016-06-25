@@ -8,42 +8,34 @@
  * Controller of the frontEndParentApp
  */
 angular.module('frontEndParentApp')
-  .controller('wishesCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
-    $scope.points = 40;
+  .controller('wishesCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
     var self = $scope;
 
     self.isAddWish =  false ;
     self.showAddWish = showAddWish;
     self.cancel =cancel;
     self.addNewWish =addNewWish;
+    self.sendRequest =sendRequest;
 
     self.newWish = {};
-    self.wishes = [
-      {
-        name: "New race car",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "PRICED",
-        points: 30
-      },
-      {
-        name: "IPOD",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "ADDED",
-        points: 0
-      },
-      {
-        name: "Candies",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "TO BUY",
-        points: 3
-      },
-      {
-        name: "Apple juice",
-        description: "as seen here: http://allegro.pl/show_item.php?gclid=Cj0KEQjw17i7BRC7toz5g5DM0tsBEiQAIt7nLCexhXf1AHRUTq76ZlThDZNaN2o855BVwk_IW1rvEa4aAib38P8HAQ&item=5199076970&utm_source=google&utm_medium=cpc&ev_campaign=PLASmA-KidKraft",
-        status: "BOUGHT",
-        points: 1
-      },
-    ];
+
+
+
+    var getWishes = function (){
+      $http({
+        method: 'GET',
+        url: 'http://192.168.8.105:8080/wishes'
+
+      }).then(function successCallback(response) {
+        $scope.wishes = response.data;
+      }, function errorCallback(response) {
+        console.log("nothing")
+      })};
+
+
+
+    getWishes();
+
 
     function showAddWish() {
        self.isAddWish = true;
@@ -68,14 +60,28 @@ angular.module('frontEndParentApp')
           url: 'http://192.168.8.105:8080/wishes/create',
           data: {
             name: self.newWish.name,
+            description: self.newWish.description,
             points: self.newWish.points
           }
         });
-
-        createWish()
       };
+
+      createWish();
   };
 
+    function sendRequest(wish) {
+      wish.wishStatus = "WAITING TO BUY";
+
+      var requestToBuy = function () {
+        $http({
+          method: 'POST',
+          url: 'http://192.168.8.105:8080/wishes/request',
+          data: wish
+        });
+      };
+
+      requestToBuy();
+    };
 
 
 

@@ -1,5 +1,10 @@
+<div class="main">
+
+
+
+  <div class="points">{{points}}</div>
 <h1>TASKS</h1>
-<table class="tasks-table" ng-controller="tasksCtrl">
+<table class="tasks-table table" ng-controller="tasksCtrl">
   <tr>
     <th>Name</th>
     <th>Status</th>
@@ -7,10 +12,14 @@
     <th></th>
   </tr>
 
-  <tr ng-repeat = "task in tasks">
+  <tr ng-repeat = "task in tasks"
+      ng-class="
+  task.taskStatus =='TO DO' && task.points==0 ? 'red' : (   task.taskStatus =='TO DO' ? 'orange' : 'blue')"
+>
     <td>{{task.name}}</td>
-    <td>{{task.status}}</td>
+    <td>{{task.taskStatus}}</td>
     <td>{{task.points}}</td>
-    <td><input type = "checkbox" ng-if="task.status == 'TO DO'" ng-click="task.status='DONE'"></td>
+    <td><input type = "checkbox" ng-if="task.taskStatus == 'TO DO'" ng-click="changeTaskToDone(task)"></td>
   </tr>
 </table>
+</div>

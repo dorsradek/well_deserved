@@ -1,11 +1,11 @@
 <h1>TASKS</h1>
-<div  ng-controller="tasksCtrl">
+<div  class="main" ng-controller="tasksCtrl">
 
+  <div class="points">{{points}}</div>
 <button ng-click="showAddTask()">Add Task</button>
 
 <div class="add-task" ng-show="isAddTask">
   <h2>New Task</h2>
-  <label>{{isAddTask}}</label>
   <div>
     <label>Name</label>
     <br/>
@@ -25,7 +25,7 @@
 
 </div>
 
-<table class="tasks-table">
+<table class="tasks-table table-striped">
   <tr>
     <th>Name</th>
     <th>Status</th>
@@ -37,7 +37,7 @@
     <td>{{task.name}}</td>
     <td>{{task.taskStatus}}</td>
     <td>{{task.points}}</td>
-    <td><input type = "checkbox" ng-if="task.taskStatus == 'DONE'" ng-click="task.taskStatus='VERIFIED'"></td>
+    <td><input type = "checkbox" ng-if="task.taskStatus == 'DONE'" ng-click="verified(task)"></td>
   </tr>
 </table>
 </div>

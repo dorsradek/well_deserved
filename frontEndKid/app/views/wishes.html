@@ -1,10 +1,13 @@
-<div ng-controller="wishesCtrl">
+<div ng-controller="wishesCtrl" class="main">
+
+
+
+  <div class="points">{{points}}</div>
   <h1>WISHES</h1>
   <button ng-click="showAddWish()">Add Wish</button>
 
   <div class="add-wish" ng-show="isAddWish">
     <h2>New Wishes</h2>
-      <label>{{isAddWish}}</label>
     <div>
       <label>Name</label>
       <br/>
@@ -38,7 +41,7 @@
       <td>{{wish.wishStatus}}</td>
       <td>{{wish.points}}</td>
       <td>
-        <button ng-if="points > wish.points && wish.status==='PRICED'" ng-click="sendRequest">Request</button>
+        <button ng-if="points > wish.points && wish.wishStatus==='PRICED'" ng-click="sendRequest(wish)">Request</button>
       </td>
     </tr>
   </table>

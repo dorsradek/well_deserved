@@ -11,6 +11,23 @@ angular.module('frontEndParentApp')
   .controller('wishesCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
     var self = $scope;
 
+
+    $scope.points = '';
+
+    var getPoints = function (){
+      $http({
+        method: 'GET',
+        url: 'http://192.168.8.105:8080/kids/points'
+      }).then(function successCallback(response) {
+        $scope.points = response.data;
+      }, function errorCallback(response) {
+        console.log("nothing")
+      })};
+
+
+
+    getPoints();
+    
     self.isAddWish =  false ;
     self.showAddWish = showAddWish;
     self.cancel =cancel;
