@@ -61,9 +61,11 @@ class CLR implements CommandLineRunner {
         wishService.addPoints(wish);
         wish = new Wish("smartphone", "just because", 12, WishStatus.WAITING_TO_BUY);
         wishService.create(wish);
+        wishService.addPoints(wish);
         wishService.request(wish);
         wish = new Wish("laptop", "just because", 100, WishStatus.BOUGHT);
         wishService.create(wish);
+        wishService.addPoints(wish);
         wishService.request(wish);
         wishService.buy(wish);
 
