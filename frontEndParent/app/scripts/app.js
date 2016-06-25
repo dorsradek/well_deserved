@@ -29,6 +29,18 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+
+      .when('/tasks', {
+        templateUrl: 'views/tasks.html',
+        controller: 'tasksCtrl',
+        controllerAs: 'tasks'
+      })
+
+      .when('/wishes', {
+        templateUrl: 'views/wishes.html',
+        controller: 'wishesCtrl',
+        controllerAs: 'wishes'
+      })
       .otherwise({
         redirectTo: '/'
       });

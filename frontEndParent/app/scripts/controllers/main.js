@@ -8,10 +8,12 @@
  * Controller of the frontEndParentApp
  */
 angular.module('frontEndParentApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', ['$scope', function ($scope) {
+    $scope.currentKid = 'Antek';
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);

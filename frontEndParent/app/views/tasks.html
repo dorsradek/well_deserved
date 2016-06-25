@@ -1,0 +1,16 @@
+<h1>TASKS</h1>
+<table class="tasks-table" ng-controller="tasksCtrl">
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Points</th>
+    <th></th>
+  </tr>
+
+  <tr ng-repeat = "task in tasks">
+    <td>{{task.name}}</td>
+    <td>{{task.status}}</td>
+    <td>{{task.points}}</td>
+    <td><input type = "checkbox" ng-if="task.status == 'TO DO'" ng-click="task.status='DONE'"></td>
+  </tr>
+</table>

@@ -1,0 +1,23 @@
+<h1>WISHES</h1>
+<button>Add Wish</button>
+<div class="add-wish">
+  <label></label>
+</div>
+
+<table class="wishes-table" ng-controller="wishesCtrl">
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Points</th>
+    <th></th>
+  </tr>
+
+  <tr ng-repeat = "wish in wishes">
+    <td>{{wish.name}}</td>
+    <td>{{wish.status}}</td>
+    <td>{{wish.points}}</td>
+    <td>
+      <button ng-if="points > wish.points && wish.status==='PRICED'" ng-click="sendRequest">Get</button>
+    </td>
+  </tr>
+</table>
