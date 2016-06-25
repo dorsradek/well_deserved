@@ -5,9 +5,7 @@ import com.hsbc.deserved.well.model.task.Task;
 import com.hsbc.deserved.well.model.task.TaskStatus;
 import com.hsbc.deserved.well.model.wish.Wish;
 import com.hsbc.deserved.well.model.wish.WishStatus;
-import com.hsbc.deserved.well.service.KidService;
-import com.hsbc.deserved.well.service.TaskService;
-import com.hsbc.deserved.well.service.WishService;
+import com.hsbc.deserved.well.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,12 +24,12 @@ public class WellDeservedApplication {
 @Component
 class CLR implements CommandLineRunner {
 
-    private TaskService taskService;
-    private KidService kidService;
-    private WishService wishService;
+    private ITaskService taskService;
+    private IKidService kidService;
+    private IWishService wishService;
 
     @Autowired
-    public CLR(TaskService taskService, KidService kidService, WishService wishService) {
+    public CLR(ITaskService taskService, IKidService kidService, IWishService wishService) {
         this.taskService = taskService;
         this.kidService = kidService;
         this.wishService = wishService;
