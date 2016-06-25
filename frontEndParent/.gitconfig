@@ -1,0 +1,11 @@
+[user]
+	name = Marta Bondyra
+	email = 
+[core]
+	excludesfile = /Users/marta/.gitignore_global
+[difftool "sourcetree"]
+	cmd = /Volumes/kdiff3/kdiff3.app/Contents/MacOS/kdiff3 \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Volumes/kdiff3/kdiff3.app/Contents/MacOS/kdiff3 \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
