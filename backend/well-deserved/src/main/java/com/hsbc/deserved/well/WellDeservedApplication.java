@@ -40,7 +40,7 @@ class CLR implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        Kid kid = new Kid("Antek", 30, 6);
+        Kid kid = new Kid("Antek", 999999, 6);
         this.kidService.create(kid);
 
         Task task = new Task("do homework", TaskStatus.TODO, 0);
@@ -64,7 +64,11 @@ class CLR implements CommandLineRunner {
         wishService.request(wish);
         wish = new Wish("laptop", "just because", 100, WishStatus.BOUGHT);
         wishService.create(wish);
+        wishService.request(wish);
         wishService.buy(wish);
+
+        kid.setPoints(30);
+        this.kidService.create(kid);
 
     }
 }
