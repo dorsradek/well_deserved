@@ -14,15 +14,16 @@ angular.module('frontEndParentApp')
 
     $scope.points = '';
 
-    var getPoints = function (){
+    var getPoints = function () {
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/kids/points'
+        url: 'http://localhost:8080/kids/points'
       }).then(function successCallback(response) {
-        $scope.points = response.data;
-      }, function errorCallback() {
-        console.log("nothing")
-      })};
+        $rootScope.points = response.data;
+      }, function errorCallback(response) {
+        $rootScope.points = 0;
+      })
+    };
     
 
     getPoints();

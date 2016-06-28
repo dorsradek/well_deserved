@@ -11,12 +11,12 @@ angular.module('frontEndParentApp')
   .controller('tasksCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
 
 
-    $scope.points = '';
+    $scope.points = 0;
 
     var getPoints = function (){
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/kids/points'
+        url: 'http://localhost:8080/kids/points'
       }).then(function successCallback(response) {
         $scope.points = response.data;
       }, function errorCallback(response) {
@@ -24,8 +24,10 @@ angular.module('frontEndParentApp')
       })};
 
 
-
     getPoints();
+
+
+    
     var self = $scope;
 
 
@@ -40,7 +42,7 @@ angular.module('frontEndParentApp')
     var getTasks = function (){
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/tasks',
+        url: 'http://localhost:8080/tasks',
 
       }).then(function successCallback(response) {
         $scope.tasks = response.data;
@@ -74,15 +76,11 @@ angular.module('frontEndParentApp')
       var createTask = function (){
         $http({
           method: 'POST',
-          url: 'http://192.168.8.105:8080/tasks/create',
+          url: 'http://localhost:8080/tasks/create',
           data: {
             name: self.newTask.name,
             points: self.newTask.points
           }
-        }).then(function successCallback(response) {
-          $scope.points = response.data;
-        }, function errorCallback(response) {
-          console.log("nothing")
         })};
       createTask();
 
@@ -92,12 +90,12 @@ angular.module('frontEndParentApp')
       task.taskStatus = "VERIFIED";
       $http({
         method: 'POST',
-        url: 'http://192.168.8.105:8080/tasks/verify',
+        url: 'http://localhost:8080/tasks/verify',
         data: task
       }).then (function success () {
         getPoints();
       })
-      
+
     };
 
   }]);

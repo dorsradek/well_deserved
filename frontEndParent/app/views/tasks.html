@@ -30,13 +30,14 @@
     <th>Name</th>
     <th>Status</th>
     <th>Points</th>
-    <th></th>
+    <th>Accept</th>
   </tr>
 
   <tr ng-repeat = "task in tasks">
     <td>{{task.name}}</td>
     <td>{{task.taskStatus}}</td>
-    <td>{{task.points}}</td>
+    <td ng-show="task.points>0">{{task.points}}</td>
+    <td ng-show="task.points==0">MANDATORY</td>
     <td><input type = "checkbox" ng-if="task.taskStatus == 'DONE'" ng-click="verified(task)"></td>
   </tr>
 </table>

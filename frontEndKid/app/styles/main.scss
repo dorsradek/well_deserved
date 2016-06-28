@@ -163,12 +163,27 @@ table {
     }
   }
 
-  table{
+  .table{
 
     width: 100%;
     font-size: 16px;
     &:first-child{
       width:50%;
+    }
+    tr{
+      td{
+        vertical-align: middle;
+        padding:3px;
+      }
+    }
+    button{
+      padding: 0px;
+      font-size: 14px;
+      margin-bottom: 0px;
+      width: 100%;
+      padding: 0px;
+      border: inherit;
+      border-radius:5px;
     }
   }
 }
@@ -203,4 +218,10 @@ textarea {
 
 .blue{
   background: #b4f3ff;
+}
+
+
+.container > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-header, .container-fluid > .navbar-collapse{
+  margin-right: 0;
+  margin-left: 0
 }

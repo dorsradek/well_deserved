@@ -6,20 +6,21 @@
 <h1>TASKS</h1>
 <table class="tasks-table table" ng-controller="tasksCtrl">
   <tr>
+    <th></th>
     <th>Name</th>
     <th>Status</th>
     <th>Points</th>
-    <th></th>
   </tr>
 
   <tr ng-repeat = "task in tasks"
       ng-class="
   task.taskStatus =='TO DO' && task.points==0 ? 'red' : (   task.taskStatus =='TO DO' ? 'orange' : 'blue')"
 >
+    <td><button ng-if="task.taskStatus == 'TO DO'" ng-click="changeTaskToDone(task)">DONE</td>
     <td>{{task.name}}</td>
     <td>{{task.taskStatus}}</td>
-    <td>{{task.points}}</td>
-    <td><input type = "checkbox" ng-if="task.taskStatus == 'TO DO'" ng-click="changeTaskToDone(task)"></td>
+    <td ng-show="task.points>0">{{task.points}}</td>
+    <td ng-show="task.points==0">MANDATORY</td>
   </tr>
 </table>
 </div>

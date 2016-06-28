@@ -11,13 +11,12 @@ angular.module('frontEndParentApp')
   .controller('wishesCtrl', ['$scope', '$rootScope', 'pointsService', '$http', function ($scope, $rootScope, pointsService, $http) {
     var self = $scope;
 
-
-    $scope.points = '';
+    $scope.points = 0;
 
     var getPoints = function (){
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/kids/points'
+        url: 'http://localhost:8080/kids/points'
       }).then(function successCallback(response) {
         $scope.points = response.data;
       }, function errorCallback(response) {
@@ -25,9 +24,8 @@ angular.module('frontEndParentApp')
       })};
 
 
-
     getPoints();
-    
+
     self.isAddWish =  false ;
     self.showAddWish = showAddWish;
     self.cancel =cancel;
@@ -39,7 +37,7 @@ angular.module('frontEndParentApp')
     var getWishes = function (){
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/wishes'
+        url: 'http://localhost:8080/wishes'
 
       }).then(function successCallback(response) {
         $scope.wishes = response.data;
@@ -56,9 +54,8 @@ angular.module('frontEndParentApp')
       wish.wishStatus="PRICED";
       $http({
         method: 'POST',
-        url: 'http://192.168.8.105:8080/wishes/addPoints',
+        url: 'http://localhost:8080/wishes/addPoints',
         data: wish
-
       })
 
   };
@@ -81,7 +78,7 @@ angular.module('frontEndParentApp')
           points: 0
        });
       self.newWish = {};
-      
+
   };
 
 

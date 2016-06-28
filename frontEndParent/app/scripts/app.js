@@ -48,16 +48,17 @@ angular
   .factory('pointsService', function($rootScope, $http) {
     
     var pointsService = {};
-    
-    var getPoints = function (){$http({
-      method: 'GET',
-      url: 'http://192.168.8.105:8080/kids/points'
-    }).then(function successCallback(response) {
-      pointsService.points = response.data;
-      $rootScope.points = pointsService.points;
-    }, function errorCallback(response) {
-      pointsService.points = response.data;
-    })};
+
+    var getPoints = function () {
+      $http({
+        method: 'GET',
+        url: 'http://localhost:8080/kids/points'
+      }).then(function successCallback(response) {
+        $rootScope.points = response.data;
+      }, function errorCallback(response) {
+        $rootScope.points = 0;
+      })
+    };
 
     getPoints();
 

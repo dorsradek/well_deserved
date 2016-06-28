@@ -20,11 +20,27 @@ angular.module('frontEndParentApp')
     self.newWish = {};
 
 
+    $scope.points = 0;
+
+    var getPoints = function (){
+      $http({
+        method: 'GET',
+        url: 'http://localhost:8080/kids/points'
+      }).then(function successCallback(response) {
+        $scope.points = response.data;
+      }, function errorCallback(response) {
+        console.log("nothing")
+      })};
+
+
+    getPoints();
+
+
 
     var getWishes = function (){
       $http({
         method: 'GET',
-        url: 'http://192.168.8.105:8080/wishes'
+        url: 'http://localhost:8080/wishes'
 
       }).then(function successCallback(response) {
         $scope.wishes = response.data;
@@ -57,7 +73,7 @@ angular.module('frontEndParentApp')
       var createWish = function () {
         $http({
           method: 'POST',
-          url: 'http://192.168.8.105:8080/wishes/create',
+          url: 'http://localhost:8080/wishes/create',
           data: {
             name: self.newWish.name,
             description: self.newWish.description,
@@ -75,7 +91,7 @@ angular.module('frontEndParentApp')
       var requestToBuy = function () {
         $http({
           method: 'POST',
-          url: 'http://192.168.8.105:8080/wishes/request',
+          url: 'http://localhost:8080/wishes/request',
           data: wish
         });
       };
